@@ -1,0 +1,13 @@
+{
+  "id": "success",
+  "title": "Successful local command",
+  "source": "synthetic",
+  "command": ["node", "-e", "console.log('trace ok')"],
+  "exitCode": 0,
+  "stdout": "trace ok\n",
+  "stderr": "",
+  "diff": "",
+  "expectedFindingIds": [],
+  "expectedRedactedTextIncludes": ["trace ok"],
+  "expectedRedactedTextExcludes": []
+}

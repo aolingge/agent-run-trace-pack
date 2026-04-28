@@ -29,7 +29,7 @@
         "Tests pass"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "notes": "AGENTS.md requires every new detector to include a fixture or unit test and forbids private data in fixtures/docs. Reuse existing Vitest plus local fixture files; do not introduce external trace generators or real agent logs."
     },
     {

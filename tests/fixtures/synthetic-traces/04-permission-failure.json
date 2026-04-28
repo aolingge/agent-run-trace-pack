@@ -1,0 +1,13 @@
+{
+  "id": "permission-failure",
+  "title": "Synthetic permission error",
+  "source": "synthetic",
+  "command": ["node", "read-protected-cache.js"],
+  "exitCode": 1,
+  "stdout": "",
+  "stderr": "Error: EPERM: operation not permitted, open '/synthetic/protected-cache'\n",
+  "diff": "",
+  "expectedFindingIds": ["permission-failure"],
+  "expectedRedactedTextIncludes": ["EPERM: operation not permitted"],
+  "expectedRedactedTextExcludes": []
+}

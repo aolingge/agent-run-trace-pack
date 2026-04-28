@@ -1,0 +1,13 @@
+{
+  "id": "command-failure",
+  "title": "Nonzero local command",
+  "source": "synthetic",
+  "command": ["node", "-e", "console.error('synthetic command failed'); process.exit(2)"],
+  "exitCode": 2,
+  "stdout": "",
+  "stderr": "synthetic command failed\n",
+  "diff": "",
+  "expectedFindingIds": [],
+  "expectedRedactedTextIncludes": ["synthetic command failed"],
+  "expectedRedactedTextExcludes": []
+}

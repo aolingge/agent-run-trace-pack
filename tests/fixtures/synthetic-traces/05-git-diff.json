@@ -1,0 +1,13 @@
+{
+  "id": "git-diff",
+  "title": "Synthetic git diff capture",
+  "source": "synthetic",
+  "command": ["node", "-e", "console.log('updated synthetic file')"],
+  "exitCode": 0,
+  "stdout": "updated synthetic file\n",
+  "stderr": "",
+  "diff": "diff --git a/src/example.ts b/src/example.ts\nindex 0000000..1111111 100644\n--- a/src/example.ts\n+++ b/src/example.ts\n@@ -1 +1 @@\n-console.log(\"before\");\n+console.log(\"after\");\n",
+  "expectedFindingIds": [],
+  "expectedRedactedTextIncludes": ["diff --git", "console.log(\"after\");"],
+  "expectedRedactedTextExcludes": []
+}
