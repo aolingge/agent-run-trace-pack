@@ -1,7 +1,7 @@
 {
   "name": "agent-run-trace-pack",
   "version": "0.1.0",
-  "description": "Record local coding-agent runs into redacted, reviewable trace packs.",
+  "description": "Pre-release local-first CLI for redacted, reviewable coding-agent trace packs.",
   "type": "module",
   "bin": {
     "agent-run-trace-pack": "./dist/cli.js",
@@ -14,6 +14,25 @@
     "README.md",
     "LICENSE"
   ],
+  "agentRunTracePack": {
+    "status": "pre-release",
+    "usage": "source-mode until a public npm package exists",
+    "node": ">=20",
+    "packageContents": [
+      "dist",
+      "docs",
+      "assets",
+      "README.md",
+      "LICENSE"
+    ],
+    "manualReleaseOutOfScope": [
+      "npm publish",
+      "git tag",
+      "GitHub release",
+      "external posting",
+      "credential requirement"
+    ]
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",

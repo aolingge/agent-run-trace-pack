@@ -1,0 +1,134 @@
+{
+  "project": "Agent Run Trace Pack",
+  "branchName": "ralph/oss-polish-launch-kit",
+  "description": "Polish the existing local-first TypeScript CLI into a product-quality open-source pre-release repository with launch docs, fixtures, report polish, validation, and release-readiness checks while keeping npm publish and manual public release out of scope.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Define launch package contract",
+      "description": "As a maintainer, I want the launch scope and package contract made explicit so that later polish work follows the same safe pre-release boundary.",
+      "acceptanceCriteria": [
+        "README.md, docs/release-readiness.md, and package metadata describe source-mode usage, package contents, Node >=20 support, and pre-release status without claiming npm availability before publication",
+        "docs/release-readiness.md lists required local checks exactly: npm run check, npm run smoke, node scripts/release-dry-run.mjs",
+        "Manual release actions remain out of scope: no npm publish, git tag, GitHub release, external posting, or credential requirement is added",
+        "Typecheck passes"
+      ],
+      "priority": 1,
+      "passes": true,
+      "notes": "Local scan found existing README.md, docs/release-readiness.md, package.json files/bin config, and scripts/release-dry-run.mjs. Reuse npm package files/bin rules and npm pack --dry-run --json instead of adding custom packaging automation; smallest scope is launch contract and package-boundary polish only."
+    },
+    {
+      "id": "US-002",
+      "title": "Add synthetic trace fixtures",
+      "description": "As a developer, I want reusable synthetic trace fixtures so that tests and examples can cover realistic agent-run outputs without exposing private data.",
+      "acceptanceCriteria": [
+        "Add synthetic trace fixtures covering at least success, command failure, secret-like output, permission failure, and git-diff scenarios",
+        "Fixture documentation states that fixtures must not contain secrets, cookies, private logs, browser profiles, private URLs, customer code, or real credentials",
+        "Tests can load fixtures deterministically without network access, telemetry, hosted calls, or model-provider calls",
+        "Typecheck passes",
+        "Tests pass"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "AGENTS.md requires every new detector to include a fixture or unit test and forbids private data in fixtures/docs. Reuse existing Vitest plus local fixture files; do not introduce external trace generators or real agent logs."
+    },
+    {
+      "id": "US-003",
+      "title": "Strengthen CLI and detector tests",
+      "description": "As a maintainer, I want stronger CLI, redaction, and risk-detector coverage so that behavior changes are caught before release.",
+      "acceptanceCriteria": [
+        "CLI behavior tests cover run, summarize, doctor, init, missing separator, unknown command, and nonzero wrapped command behavior with local synthetic commands",
+        "Risk detector tests cover destructive commands, publish/release commands, pipe-to-shell commands, permission variants, and secret-like output using synthetic fixtures or unit inputs",
+        "Redaction tests prove stdout, stderr, diff, manifest/report-visible evidence, auth URLs, and common token-like values are redacted before persistence or display",
+        "New detector behavior includes a fixture or unit test",
+        "Typecheck passes",
+        "Tests pass"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "Local repo already has tests/risk.test.ts, tests/redact.test.ts, and tests/trace.test.ts. Reuse Vitest and Node child_process/fs/tempdir patterns; keep tests local-first and avoid provider-specific integrations."
+    },
+    {
+      "id": "US-004",
+      "title": "Polish report output",
+      "description": "As a maintainer, I want Markdown and HTML reports to be clearer, safer, and regression-tested so that trace packs are reviewable before sharing.",
+      "acceptanceCriteria": [
+        "Markdown and HTML reports include trace summary, command, duration, exit or signal, git before/after, findings grouped with severity, safe suggested actions, and output file list",
+        "HTML reports safely escape command, finding, and diff content and remain fully local static HTML with no external assets, scripts, telemetry, hosted calls, or model-provider calls",
+        "Add snapshot or fixture-based tests for Markdown and HTML report rendering and commit expected outputs for review",
+        "Verify in browser that report HTML renders at desktop and mobile widths; if EPERM, WinError 5, restricted token, AppData daemon, or child-process launch failures appear, switch to the local no-sandbox/full-access or OpenCLI path and do not retry the same sandboxed command",
+        "Typecheck passes",
+        "Tests pass"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": "Local report rendering is in src/report/render.ts. Reuse Vitest snapshot/fixture testing for structured output regression; do not add a frontend framework or remote assets for static report polish."
+    },
+    {
+      "id": "US-005",
+      "title": "Expand launch docs and examples",
+      "description": "As a user, I want richer examples, launch notes, and troubleshooting docs so that I can evaluate and run the CLI safely from source.",
+      "acceptanceCriteria": [
+        "Add or update docs with safe examples for artrace or agent-run-trace-pack wrapping npm test and synthetic Codex, Claude Code, Gemini CLI, OpenCode, and Goose-style commands",
+        "README.md and docs/index.html link to examples, safety model, report preview, release readiness, and source-mode quick start without private URLs or npm publish claims",
+        "Add a launch kit document with maintainer checklist, demo command, FAQ or troubleshooting, and a P0/P1/P2 backlog section for rough edges discovered during implementation",
+        "All docs/examples use synthetic data only and contain no secrets, tokens, cookies, passwords, connection strings, private logs, browser profiles, private URLs, or customer code",
+        "Verify in browser that docs/index.html and at least one report/example link render correctly; if EPERM, WinError 5, restricted token, AppData daemon, or child-process launch failures appear, switch to the local no-sandbox/full-access or OpenCLI path and do not retry the same sandboxed command",
+        "Typecheck passes"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Local repo already has README.md, docs/index.html, assets, CONTRIBUTING.md, SECURITY.md, and GitHub templates. Reuse those surfaces and add thin docs/examples; GitHub PR and issue templates already exist, so only refine them if a concrete gap appears."
+    },
+    {
+      "id": "US-006",
+      "title": "Add validation scripts",
+      "description": "As a maintainer, I want local validation scripts so that smoke and release-readiness checks verify real artifacts instead of only command success.",
+      "acceptanceCriteria": [
+        "Add a local validation script or npm script that checks smoke-run trace artifacts: manifest.json, stdout.log, stderr.log, diff.patch, report.md, and report.html",
+        "Validation failures print actionable messages naming the missing or invalid artifact",
+        "npm run smoke leaves output only in intended ignored temporary paths and requires no network, credentials, publish tokens, telemetry, hosted calls, or model-provider calls",
+        "node scripts/release-dry-run.mjs validates the package preview and never performs npm publish, git tag, GitHub release, external posting, or credential use",
+        "Typecheck passes",
+        "Tests pass"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "Existing package.json has smoke and scripts/release-dry-run.mjs. Reuse npm pack --dry-run --json and extend with thin local artifact checks rather than adding release-please, semantic-release, or hosted release automation."
+    },
+    {
+      "id": "US-007",
+      "title": "Complete CI readiness",
+      "description": "As a maintainer, I want CI and community files aligned with the local release boundary so that contributors get the same checks without publish automation.",
+      "acceptanceCriteria": [
+        "CI uses Node 20 with npm ci and runs npm run check, npm run smoke, and node scripts/release-dry-run.mjs",
+        "CI workflow keeps read-only permissions and includes no npm publish, gh release create, tag push, package registry auth, write credential steps, or external posting",
+        "Dependabot, issue templates, pull request template, CONTRIBUTING.md, and SECURITY.md stay aligned with synthetic-fixture and no-private-data requirements",
+        "Release readiness docs state that public links, badges, npm package claims, GitHub releases, and external announcements wait until those public surfaces exist",
+        "Typecheck passes"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "Local repo already includes .github/workflows/ci.yml, dependabot, issue templates, and a PR template. Reuse GitHub's Node CI pattern with npm ci/check/test/build and keep OpenSSF Scorecard or release-please as later optional enhancements, not part of this manual-release-out-of-scope task."
+    },
+    {
+      "id": "US-008",
+      "title": "Final review and verification",
+      "description": "As the parent reviewer, I want one final Ralph iteration to inspect accumulated changes, run required checks, fix critical issues, and leave a clear progress record before any push happens.",
+      "acceptanceCriteria": [
+        "Inspect the accumulated diff or changed files and confirm every user story acceptance criterion is satisfied or documented with a blocker",
+        "Run npm run check, npm run smoke, and node scripts/release-dry-run.mjs from the local workspace and record command outcomes",
+        "Verify in browser any changed HTML docs or report surfaces; if EPERM, WinError 5, restricted token, AppData daemon, or child-process launch failures appear, switch to the local no-sandbox/full-access or OpenCLI path and do not retry the same sandboxed command",
+        "Fix any P0 or P1 issue found during review before marking the story complete; record unresolved P2 or P3 risks in docs/release-readiness.md or the launch kit",
+        "Append final evidence and learnings to scripts/ralph/progress.txt without replacing existing log content",
+        "Confirm git status does not include generated trace output outside intended ignored temporary paths and no secrets, tokens, cookies, passwords, connection strings, private logs, browser profiles, private URLs, or customer code were added",
+        "Do not push to GitHub, create tags, publish to npm, create a GitHub release, or perform external announcements",
+        "Typecheck passes",
+        "Tests pass"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": "This is the required final review story. Parent agent will push only after review. If credentials are ever needed for local verification, reuse existing logged-in browser sessions, OpenCLI, tool-native credential stores, Cockpit Tools, or the local encrypted AI secret vault and never write secret values to repo files, PRD, progress logs, docs, fixtures, Obsidian, memory, or chat summaries."
+    }
+  ]
+}

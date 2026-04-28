@@ -12,7 +12,7 @@ Agent Run Trace Pack is a local-first CLI for maintainers and teams using Codex,
 
 ## Quick Start
 
-Pre-release status: run from source until the public npm package is published.
+Pre-release status: this repository is source-mode only until a public npm package exists. Use Node.js 20 or newer.
 
 ```bash
 npm install
@@ -20,11 +20,19 @@ npm run build
 node dist/cli.js run -- npm test
 ```
 
-After npm publication:
+Future npm usage, not available until publication:
 
 ```bash
 npx agent-run-trace-pack run -- npm test
 ```
+
+## Pre-Release Package Contract
+
+Current package metadata targets Node `>=20` and exposes `agent-run-trace-pack` and `artrace` after `npm run build`.
+
+The package preview is limited to the npm `files` allowlist: `dist`, `docs`, `assets`, `README.md`, and `LICENSE`, plus npm's required package metadata. `docs/release-readiness.md` records the exact local checks used to verify that preview.
+
+Manual release remains out of scope for this pre-release branch: no `npm publish`, git tag, GitHub release, external posting, or release credential is required.
 
 The trace pack writes:
 

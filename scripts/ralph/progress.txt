@@ -1,0 +1,33 @@
+# Ralph Progress Log
+Started: 2026-04-28T15:15:25
+---
+
+## Codebase Patterns
+- Package preview contract is defined by `package.json` `files` plus `scripts/release-dry-run.mjs`, which uses `npm pack --dry-run --json`; keep `docs/release-readiness.md` in sync with both.
+---
+
+## 2026-04-28 15:27:26 +08:00 - US-001
+- What was implemented
+  - Clarified the pre-release/source-mode launch contract in `README.md`.
+  - Expanded `docs/release-readiness.md` with Node `>=20`, package allowlist, required package preview entries, and manual release boundaries.
+  - Added `agentRunTracePack` package metadata describing pre-release status, source-mode usage, Node support, package contents, and manual-release exclusions.
+- Files changed
+  - `README.md`
+  - `docs/release-readiness.md`
+  - `package.json`
+  - `scripts/ralph/prd.json`
+  - `scripts/ralph/progress.txt`
+- Verification run
+  - `npm run typecheck` passed.
+  - `npm run build` passed.
+  - `node scripts/release-dry-run.mjs` passed: package `agent-run-trace-pack@0.1.0`, 33 files.
+  - `npm run lint` was attempted and failed on pre-existing untracked CRLF files outside this story: `progress-019dd2f1-6c45-74a1-8423-936bd58a88df.md`, `progress.md`, `scripts/ralph/CLAUDE.md`, `scripts/ralph/prompt.md`, and `scripts/ralph/task.md`.
+  - `git diff --check -- README.md docs\release-readiness.md package.json` passed.
+- Self-review result and remaining P2/P3 risks, if any
+  - P0/P1: none found. Acceptance criteria are covered: README, release readiness docs, and package metadata now describe source-mode usage, package contents, Node `>=20`, pre-release status, required checks, and manual-release exclusions without adding publish automation.
+  - P2/P3: repository lint remains sensitive to unrelated untracked CRLF Markdown files created before this iteration; this story did not normalize or commit those files.
+- Learnings for future iterations:
+  - Pattern discovered: keep package contract docs aligned with `package.json` `files` and `scripts/release-dry-run.mjs`.
+  - Gotcha encountered: `npm run lint` scans untracked Markdown files, so generated Ralph/helper notes with CRLF can fail lint even when story files are clean.
+  - Useful context for the next iteration: `node scripts/release-dry-run.mjs` is a safe local package preview check and does not publish, tag, post externally, or require credentials.
+---
