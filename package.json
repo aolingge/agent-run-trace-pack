@@ -1,7 +1,7 @@
 {
   "name": "agent-run-trace-pack",
   "version": "0.1.0",
-  "description": "Pre-release local-first CLI for redacted, reviewable coding-agent trace packs.",
+  "description": "Local-first CLI for redacted, reviewable coding-agent trace packs.",
   "type": "module",
   "repository": {
     "type": "git",
@@ -12,19 +12,20 @@
   },
   "homepage": "https://aolingge.github.io/agent-run-trace-pack/",
   "bin": {
-    "agent-run-trace-pack": "./dist/cli.js",
-    "artrace": "./dist/cli.js"
+    "agent-run-trace-pack": "dist/cli.js",
+    "artrace": "dist/cli.js"
   },
   "files": [
     "dist",
     "docs",
     "assets",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "agentRunTracePack": {
-    "status": "pre-release",
-    "usage": "source-mode until a public npm package exists",
+    "status": "public-npm-release",
+    "usage": "npx agent-run-trace-pack run -- <command>",
     "node": ">=20",
     "packageContents": [
       "dist",
@@ -33,12 +34,11 @@
       "README.md",
       "LICENSE"
     ],
-    "manualReleaseOutOfScope": [
-      "npm publish",
-      "git tag",
-      "GitHub release",
-      "external posting",
-      "credential requirement"
+    "manualReleaseChecklist": [
+      "npm run check",
+      "npm run smoke",
+      "node scripts/release-dry-run.mjs",
+      "npm pack --dry-run --json"
     ]
   },
   "scripts": {
@@ -54,13 +54,17 @@
   "keywords": [
     "ai-agent",
     "coding-agent",
+    "coding-agents",
+    "agentic-coding",
     "observability",
     "trace",
+    "audit-log",
     "mcp",
     "developer-tools",
     "cli",
     "git",
     "redaction",
+    "local-first",
     "typescript"
   ],
   "author": "Aolinge",

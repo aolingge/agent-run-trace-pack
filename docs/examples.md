@@ -1,8 +1,14 @@
 # Safe Examples
 
-These examples use source-mode commands and synthetic output only. Do not paste secrets, cookies, passwords, connection strings, private logs, browser profiles, private URLs, customer code, or real credentials into examples, fixtures, reports, or docs.
+These examples use synthetic output only. Do not paste secrets, cookies, passwords, connection strings, private logs, browser profiles, private URLs, customer code, or real credentials into examples, fixtures, reports, or docs.
 
-Build the CLI before running source-mode examples:
+Public npm path:
+
+```bash
+npx agent-run-trace-pack run -- node -e "console.log('agent step')"
+```
+
+Build the CLI when contributing from source:
 
 ```bash
 npm install
@@ -11,7 +17,7 @@ npm run build
 
 ## npm Test Wrapper
 
-Source-mode command:
+Source command:
 
 ```bash
 node dist/cli.js run --out .tmp/examples/npm-test -- npm test
