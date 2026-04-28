@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { runTrace } from "./core/trace.js";
 import { captureGitSnapshot } from "./core/git.js";
 
-const version = "0.1.0";
+const version = "0.1.1";
 
 export async function main(argv: string[]): Promise<number> {
   const [command, ...rest] = argv;

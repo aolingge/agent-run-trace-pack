@@ -82,7 +82,7 @@ describe("CLI behavior", () => {
       ]);
 
       expect(run.code).toBe(0);
-      expect(run.stdout).toContain("Agent Run Trace Pack 0.1.0");
+      expect(run.stdout).toContain("Agent Run Trace Pack 0.1.1");
       expect(run.stdout).toContain("Report:");
 
       const traceDir = singleTraceDir(cwd, ".traces");
@@ -122,7 +122,7 @@ describe("CLI behavior", () => {
     const result = await invokeCli(["doctor"]);
 
     expect(result.code).toBe(0);
-    expect(result.stdout).toContain("Agent Run Trace Pack 0.1.0");
+    expect(result.stdout).toContain("Agent Run Trace Pack 0.1.1");
     expect(result.stdout).toContain("Node:");
     expect(result.stdout).toContain("Git:");
   });
