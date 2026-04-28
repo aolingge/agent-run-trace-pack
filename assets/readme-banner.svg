@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title desc">
+  <title id="title">Agent Run Trace Pack banner</title>
+  <desc id="desc">A banner for a local coding-agent flight recorder.</desc>
+  <rect width="1280" height="360" fill="#f7f8fb"/>
+  <path d="M0 34H1280M0 68H1280M0 102H1280M0 136H1280M0 170H1280M0 204H1280M0 238H1280M0 272H1280M0 306H1280M34 0V360M68 0V360M102 0V360M136 0V360M170 0V360M204 0V360M238 0V360M272 0V360M306 0V360M340 0V360M374 0V360M408 0V360M442 0V360M476 0V360M510 0V360M544 0V360M578 0V360M612 0V360M646 0V360M680 0V360M714 0V360M748 0V360M782 0V360M816 0V360M850 0V360M884 0V360M918 0V360M952 0V360M986 0V360M1020 0V360M1054 0V360M1088 0V360M1122 0V360M1156 0V360M1190 0V360M1224 0V360M1258 0V360" stroke="#d8dee8" stroke-width="1"/>
+  <rect x="72" y="56" width="1136" height="248" fill="#fff" stroke="#181714" stroke-width="5"/>
+  <rect x="72" y="56" width="1136" height="54" fill="#181714"/>
+  <circle cx="108" cy="83" r="9" fill="#b42318"/>
+  <circle cx="140" cy="83" r="9" fill="#b46917"/>
+  <circle cx="172" cy="83" r="9" fill="#1f7a5b"/>
+  <text x="108" y="170" fill="#315f9f" font-family="Consolas, monospace" font-size="24" font-weight="800">LOCAL-FIRST AGENT TRACE PACKS</text>
+  <text x="108" y="238" fill="#181714" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="700">Agent Run Trace Pack</text>
+  <text x="108" y="280" fill="#526071" font-family="Georgia, 'Times New Roman', serif" font-size="29">Redacted reports for coding-agent runs, diffs, and risk signals.</text>
+  <g transform="translate(912 145)" font-family="Consolas, monospace" font-size="20">
+    <rect width="210" height="42" fill="#f7f8fb" stroke="#d8dee8" stroke-width="2"/>
+    <text x="18" y="28" fill="#181714">stdout.log</text>
+    <rect y="54" width="210" height="42" fill="#f7f8fb" stroke="#d8dee8" stroke-width="2"/>
+    <text x="18" y="82" fill="#181714">diff.patch</text>
+    <rect y="108" width="210" height="42" fill="#f7f8fb" stroke="#d8dee8" stroke-width="2"/>
+    <text x="18" y="136" fill="#181714">report.html</text>
+  </g>
+</svg>

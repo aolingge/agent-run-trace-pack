@@ -1,0 +1,48 @@
+{
+  "name": "agent-run-trace-pack",
+  "version": "0.1.0",
+  "description": "Record local coding-agent runs into redacted, reviewable trace packs.",
+  "type": "module",
+  "bin": {
+    "agent-run-trace-pack": "./dist/cli.js",
+    "artrace": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "assets",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "lint": "node scripts/lint.mjs",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build",
+    "smoke": "node dist/cli.js run --out .tmp/smoke -- node -e \"console.log('trace smoke')\"",
+    "demo": "node dist/cli.js run --out .tmp/demo -- node -e \"console.log('agent step'); console.error('warning: retry once')\""
+  },
+  "keywords": [
+    "ai-agent",
+    "coding-agent",
+    "observability",
+    "trace",
+    "mcp",
+    "developer-tools",
+    "cli",
+    "git",
+    "redaction",
+    "typescript"
+  ],
+  "author": "Aolinge",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
+  }
+}

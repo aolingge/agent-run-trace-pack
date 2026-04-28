@@ -1,0 +1,35 @@
+name: Bug report
+description: Report a reproducible CLI or trace-pack problem
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Minimal command and repository shape that reproduces the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+  - type: textarea
+    id: redacted-output
+    attributes:
+      label: Redacted output
+      description: Paste only redacted output. Never include real credentials, private logs, private URLs, cookies, browser profiles, or customer code.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: I removed secrets, cookies, private URLs, private logs, browser profiles, and sensitive source details.
+          required: true

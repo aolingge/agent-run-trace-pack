@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">Agent Run Trace Pack social preview</title>
+  <desc id="desc">Social preview for Agent Run Trace Pack.</desc>
+  <rect width="1280" height="640" fill="#f7f8fb"/>
+  <path d="M0 34H1280M0 68H1280M0 102H1280M0 136H1280M0 170H1280M0 204H1280M0 238H1280M0 272H1280M0 306H1280M0 340H1280M0 374H1280M0 408H1280M0 442H1280M0 476H1280M0 510H1280M0 544H1280M0 578H1280M34 0V640M68 0V640M102 0V640M136 0V640M170 0V640M204 0V640M238 0V640M272 0V640M306 0V640M340 0V640M374 0V640M408 0V640M442 0V640M476 0V640M510 0V640M544 0V640M578 0V640M612 0V640M646 0V640M680 0V640M714 0V640M748 0V640M782 0V640M816 0V640M850 0V640M884 0V640M918 0V640M952 0V640M986 0V640M1020 0V640M1054 0V640M1088 0V640M1122 0V640M1156 0V640M1190 0V640M1224 0V640M1258 0V640" stroke="#d8dee8" stroke-width="1"/>
+  <rect x="72" y="74" width="1136" height="492" fill="#fff" stroke="#181714" stroke-width="5"/>
+  <rect x="72" y="74" width="1136" height="64" fill="#181714"/>
+  <circle cx="112" cy="106" r="10" fill="#b42318"/>
+  <circle cx="146" cy="106" r="10" fill="#b46917"/>
+  <circle cx="180" cy="106" r="10" fill="#1f7a5b"/>
+  <text x="104" y="218" fill="#315f9f" font-family="Consolas, monospace" font-size="25" font-weight="800">CODING-AGENT FLIGHT RECORDER</text>
+  <text x="104" y="312" fill="#181714" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="700">Agent Run Trace Pack</text>
+  <text x="104" y="374" fill="#526071" font-family="Georgia, 'Times New Roman', serif" font-size="32">Redacted local reports for commands, diffs, and risk signals.</text>
+  <g transform="translate(104 424)" font-family="Consolas, monospace" font-size="24" fill="#181714">
+    <rect x="0" y="0" width="338" height="52" fill="#f7f8fb" stroke="#d8dee8" stroke-width="2"/>
+    <text x="22" y="35">artrace run --</text>
+    <rect x="362" y="0" width="234" height="52" fill="#f7f8fb" stroke="#d8dee8" stroke-width="2"/>
+    <text x="384" y="35">diff.patch</text>
+    <rect x="620" y="0" width="250" height="52" fill="#f7f8fb" stroke="#d8dee8" stroke-width="2"/>
+    <text x="642" y="35">report.html</text>
+  </g>
+</svg>

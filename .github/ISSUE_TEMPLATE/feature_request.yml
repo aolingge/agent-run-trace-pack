@@ -1,0 +1,23 @@
+name: Feature request
+description: Suggest a detector, report output, or workflow integration
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Maintainer problem
+      description: What coding-agent trace, review, or safety problem should this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Synthetic example
+      description: Include a synthetic command, output, or fixture shape if helpful.
