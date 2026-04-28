@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "description": "Pre-release local-first CLI for redacted, reviewable coding-agent trace packs.",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aolingge/agent-run-trace-pack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aolingge/agent-run-trace-pack/issues"
+  },
+  "homepage": "https://aolingge.github.io/agent-run-trace-pack/",
   "bin": {
     "agent-run-trace-pack": "./dist/cli.js",
     "artrace": "./dist/cli.js"

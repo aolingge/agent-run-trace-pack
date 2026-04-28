@@ -5,6 +5,7 @@
 Record local coding-agent runs into redacted, reviewable trace packs.
 
 [![Status](https://img.shields.io/badge/status-pre--release-315f9f.svg)](docs/release-readiness.md)
+[![CI](https://github.com/aolingge/agent-run-trace-pack/actions/workflows/ci.yml/badge.svg)](https://github.com/aolingge/agent-run-trace-pack/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-181714.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-315f9f.svg)](package.json)
 
@@ -12,7 +13,10 @@ Agent Run Trace Pack is a local-first CLI for maintainers and teams using Codex,
 
 ## Quick Start
 
-Pre-release status: this repository is source-mode only until a public npm package exists. Use Node.js 20 or newer.
+Pre-release status: the public repository and docs are live, and the npm package is not published yet. Use Node.js 20 or newer.
+
+- Source: <https://github.com/aolingge/agent-run-trace-pack>
+- Docs: <https://aolingge.github.io/agent-run-trace-pack/>
 
 ```bash
 npm install

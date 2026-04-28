@@ -49,7 +49,11 @@ The smoke and release dry-run checks are local-only. They do not require network
 
 ## Public Link Boundary
 
-The project starts in pre-release source mode. Add public GitHub, issue tracker, CI badge, homepage, and npm links only after the corresponding public surfaces exist.
+The project is in pre-release npm mode: the public GitHub repository and documentation URL exist, and the npm package is not published yet. Public repository, issue tracker, CI badge, and homepage links are allowed; keep npm install claims as pre-publication wording until the package is live.
+
+- Public repository: https://github.com/aolingge/agent-run-trace-pack
+- Documentation: https://aolingge.github.io/agent-run-trace-pack/
+- npm package: pending
 
 ## Manual Release Boundary
 

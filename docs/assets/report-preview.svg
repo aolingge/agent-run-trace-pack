@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520" role="img" aria-labelledby="title desc">
+  <title id="title">Agent Run Trace report preview</title>
+  <desc id="desc">A preview of a trace report showing exit code, duration, findings, and git diff stat.</desc>
+  <rect width="920" height="520" fill="#f7f8fb"/>
+  <rect x="48" y="42" width="824" height="430" fill="#fff" stroke="#181714" stroke-width="4"/>
+  <rect x="48" y="42" width="824" height="50" fill="#181714"/>
+  <circle cx="82" cy="67" r="8" fill="#b42318"/>
+  <circle cx="112" cy="67" r="8" fill="#b46917"/>
+  <circle cx="142" cy="67" r="8" fill="#1f7a5b"/>
+  <text x="80" y="142" fill="#315f9f" font-family="Consolas, monospace" font-size="18" font-weight="800">agent-run-trace-pack</text>
+  <text x="80" y="198" fill="#181714" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="700">Agent Run Trace</text>
+  <g transform="translate(80 236)" font-family="Consolas, monospace" font-size="20">
+    <rect width="220" height="72" fill="#f7f8fb" stroke="#d8dee8" stroke-width="2"/>
+    <text x="18" y="30" fill="#526071">Exit</text>
+    <text x="18" y="58" fill="#1f7a5b" font-weight="800">0</text>
+    <rect x="244" width="220" height="72" fill="#f7f8fb" stroke="#d8dee8" stroke-width="2"/>
+    <text x="262" y="30" fill="#526071">Duration</text>
+    <text x="262" y="58" fill="#315f9f" font-weight="800">12.4s</text>
+    <rect x="488" width="220" height="72" fill="#f7f8fb" stroke="#d8dee8" stroke-width="2"/>
+    <text x="506" y="30" fill="#526071">Findings</text>
+    <text x="506" y="58" fill="#b46917" font-weight="800">1</text>
+  </g>
+  <rect x="80" y="344" width="708" height="70" fill="#fff" stroke="#d8dee8" stroke-width="2"/>
+  <text x="104" y="382" fill="#b46917" font-family="Consolas, monospace" font-size="20" font-weight="800">P0</text>
+  <text x="150" y="382" fill="#181714" font-family="Georgia, 'Times New Roman', serif" font-size="24">Secret-like output was redacted</text>
+</svg>
