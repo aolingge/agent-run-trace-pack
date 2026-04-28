@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "tool": "agent-run-trace-pack",
+  "traceId": "2026-04-28T00-00-00-000Z",
+  "command": [
+    "node",
+    "-e",
+    "console.log(\"<ok>\")"
+  ],
+  "cwd": "/synthetic/project",
+  "startedAt": "2026-04-28T00:00:00.000Z",
+  "endedAt": "2026-04-28T00:00:01.234Z",
+  "durationMs": 1234,
+  "exitCode": null,
+  "signal": "SIGTERM",
+  "gitBefore": {
+    "available": true,
+    "root": "/synthetic/project",
+    "head": "abc123",
+    "branch": "main",
+    "status": "clean"
+  },
+  "gitAfter": {
+    "available": true,
+    "root": "/synthetic/project",
+    "head": "def456",
+    "branch": "feature/report-polish",
+    "status": "M src/report/render.ts",
+    "diffStat": "src/report/render.ts | 10 +++++-----\n1 file changed, 5 insertions(+), 5 deletions(-)\n<diff-check>"
+  },
+  "findings": [
+    {
+      "id": "dangerous-command",
+      "severity": "P0",
+      "title": "HTML <escape> check",
+      "detail": "Command included <script>alert('x')</script> text.",
+      "evidence": "rm -rf /tmp/synthetic && echo \"<secret>\"",
+      "suggestion": "Review the trace and confirm a rollback plan before replaying."
+    },
+    {
+      "id": "permission-failure",
+      "severity": "P2",
+      "title": "Permission failure signal",
+      "detail": "The run output included EPERM for a synthetic local path.",
+      "suggestion": "Record the command, working directory, and permission boundary before retrying."
+    }
+  ],
+  "files": {
+    "stdout": "stdout.log",
+    "stderr": "stderr.log",
+    "diff": "diff.patch",
+    "markdown": "report.md",
+    "html": "report.html",
+    "json": "manifest.json"
+  }
+}

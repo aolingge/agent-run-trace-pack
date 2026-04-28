@@ -7,6 +7,7 @@ Started: 2026-04-28T15:15:25
 - Synthetic trace fixtures live under `tests/fixtures/synthetic-traces/` as data-only JSON files; load them in sorted filename order and keep fixture commands as input data, not executable test steps.
 - CLI tests import `main` from `src/cli.ts`; keep the direct-run guard so importing the CLI does not execute process-exit behavior.
 - Run detectors on raw command/output, then redact command fields and finding evidence before writing manifest or reports.
+- Report rendering fixtures live in `tests/fixtures/report-manifest.json` plus `tests/fixtures/expected-reports/`; verify HTML through localhost when Playwright blocks direct `file:` URLs.
 ---
 
 ## 2026-04-28 15:27:26 +08:00 - US-001
@@ -95,4 +96,34 @@ Started: 2026-04-28T15:15:25
   - Pattern discovered: test CLI behavior by importing `main` and using temp directories; keep actual wrapped commands local and synthetic.
   - Gotcha encountered: the lint guard flags `API_KEY`-shaped synthetic literals even in tests, so secret-like fixtures should avoid raw `API_KEY=` forms unless dynamically constructed.
   - Useful context for the next iteration: persisted trace surfaces now redact command args and finding evidence before manifest/report writing; report polish should preserve that contract.
+---
+
+## 2026-04-28 16:03:25 +08:00 - US-004
+- What was implemented
+  - Expanded Markdown and HTML reports with trace summary, command, exit/signal, duration, git before/after, severity-grouped findings, safe suggested actions, git diff stat, and full output file lists.
+  - Added committed expected Markdown/HTML report fixtures and a deterministic Vitest report rendering test.
+  - Added HTML safety assertions for escaped command, finding, and diff-stat content, no script tags, and no external assets.
+- Files changed
+  - `src/report/render.ts`
+  - `tests/report.test.ts`
+  - `tests/fixtures/report-manifest.json`
+  - `tests/fixtures/expected-reports/report.md`
+  - `tests/fixtures/expected-reports/report.html`
+  - `scripts/ralph/prd.json`
+  - `scripts/ralph/progress.txt`
+- Verification run
+  - `npm run typecheck` passed.
+  - `npm test` passed: 6 test files, 20 tests.
+  - `npm run build` passed.
+  - `git diff --check -- src\report\render.ts tests\report.test.ts tests\fixtures\report-manifest.json tests\fixtures\expected-reports\report.md tests\fixtures\expected-reports\report.html` passed.
+  - Targeted lint for changed files passed: LF endings, final newlines, no trailing whitespace, and no `API_KEY`-style secret literals.
+  - Browser verification passed through a local `python -m http.server` after Playwright blocked direct `file:` access: desktop 1280px and mobile 390px both rendered the report, showed expected sections, had no external assets, had zero script tags, and did not overflow horizontally.
+  - `npm run check` was attempted and still failed at the pre-existing untracked CRLF helper files outside this story: `progress-019dd2f1-6c45-74a1-8423-936bd58a88df.md`, `progress.md`, `scripts/ralph/CLAUDE.md`, `scripts/ralph/prompt.md`, and `scripts/ralph/task.md`.
+- Self-review result and remaining P2/P3 risks, if any
+  - P0/P1: none found. US-004 acceptance criteria are covered by the report fields, HTML escaping/static assertions, committed expected outputs, browser verification, passing typecheck, and passing tests.
+  - P2/P3: full `npm run check` remains blocked by unrelated untracked CRLF Ralph/helper files that existed before this iteration; this story did not normalize or commit those files.
+- Learnings for future iterations:
+  - Pattern discovered: report rendering regressions should compare against committed expected Markdown/HTML fixtures rather than loose string checks only.
+  - Gotcha encountered: Playwright MCP blocks direct `file:` URLs here; serving the fixture over `127.0.0.1` is the reliable local browser verification path.
+  - Useful context for the next iteration: report HTML now has no external assets or script tags, and browser checks can assert `document.documentElement.scrollWidth <= window.innerWidth` at mobile width.
 ---

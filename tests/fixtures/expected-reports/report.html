@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Run Trace 2026-04-28T00-00-00-000Z</title>
+  <style>
+    :root { --ink:#181714; --paper:#f7f8fb; --panel:#fff; --line:#d8dee8; --blue:#315f9f; --red:#b42318; --amber:#b46917; --green:#1f7a5b; --muted:#526071; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:var(--ink); background:var(--paper); }
+    main { width:min(1080px, calc(100% - 32px)); margin:0 auto; padding:40px 0; }
+    h1 { font-size: 44px; line-height:1.05; margin:0 0 16px; }
+    h2 { margin:32px 0 12px; }
+    h3 { margin:0 0 12px; }
+    h4 { margin:8px 0; }
+    code, pre, .mono { font-family: ui-monospace, Consolas, monospace; }
+    .panel { background:var(--panel); border:3px solid var(--ink); padding:24px; box-shadow:10px 10px 0 #c8d4e8; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:24px 0; }
+    .metric, .finding { background:var(--panel); border:1px solid var(--line); padding:18px; }
+    .metric b { display:block; font-size:13px; color:var(--muted); text-transform:uppercase; }
+    .metric span { display:block; margin-top:6px; font-size:22px; color:var(--blue); overflow-wrap:anywhere; }
+    .section { background:var(--panel); border:1px solid var(--line); padding:18px; margin:16px 0; }
+    .summary-list { display:grid; grid-template-columns:max-content 1fr; gap:8px 16px; margin:0; }
+    .summary-list dt { color:var(--muted); font-weight:700; }
+    .summary-list dd { margin:0; overflow-wrap:anywhere; }
+    .file-list { margin:0; padding-left:20px; }
+    .file-list li { margin:6px 0; overflow-wrap:anywhere; }
+    .severity-group { margin:18px 0; }
+    .finding b { color:var(--amber); }
+    .finding.p0 { border-left:5px solid var(--red); }
+    .finding.p1 { border-left:5px solid var(--amber); }
+    .finding.p2 { border-left:5px solid var(--blue); }
+    .finding.p3 { border-left:5px solid var(--green); }
+    .finding.p0 b { color:var(--red); }
+    .finding + .finding { margin-top:12px; }
+    .quiet { color:var(--muted); }
+    pre { overflow:auto; background:#181714; color:#f7f8fb; padding:16px; border-radius:4px; }
+    @media (max-width: 760px) {
+      main { width:min(100% - 20px, 1080px); padding:24px 0; }
+      h1 { font-size:32px; }
+      .grid, .summary-list { grid-template-columns:1fr; }
+      .panel { box-shadow:none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="panel">
+      <div class="mono">agent-run-trace-pack</div>
+      <h1>Agent Run Trace</h1>
+      <p class="quiet">Trace 2026-04-28T00-00-00-000Z</p>
+    </section>
+    <section class="grid">
+      <div class="metric"><b>Exit or signal</b><span>signal SIGTERM</span></div>
+      <div class="metric"><b>Duration</b><span>1234ms</span></div>
+      <div class="metric"><b>Findings</b><span>2</span></div>
+    </section>
+    <section class="section">
+      <h2>Trace Summary</h2>
+      <dl class="summary-list">
+        <dt>Working directory</dt><dd><code>/synthetic/project</code></dd>
+        <dt>Started</dt><dd><code>2026-04-28T00:00:00.000Z</code></dd>
+        <dt>Ended</dt><dd><code>2026-04-28T00:00:01.234Z</code></dd>
+      </dl>
+      <h3>Command</h3>
+      <pre>node -e console.log(&quot;&lt;ok&gt;&quot;)</pre>
+    </section>
+    <section class="grid">
+      <div class="metric"><b>Git Before</b><span>abc123</span><small>branch: main<br>status: clean</small></div>
+      <div class="metric"><b>Git After</b><span>def456</span><small>branch: feature/report-polish<br>status: M src/report/render.ts</small></div>
+      <div class="metric"><b>Output files</b><span>6</span></div>
+    </section>
+    <section>
+      <h2>Findings by Severity</h2>
+      <div class="severity-group"><h3>P0</h3>
+<article class="finding p0"><b>P0</b><h4>HTML &lt;escape&gt; check</h4><p>Command included &lt;script&gt;alert(&#39;x&#39;)&lt;/script&gt; text.</p><h4>Evidence</h4><pre>rm -rf /tmp/synthetic &amp;&amp; echo &quot;&lt;secret&gt;&quot;</pre><p><strong>Suggested action:</strong> Review the trace and confirm a rollback plan before replaying.</p></article></div>
+<div class="severity-group"><h3>P2</h3>
+<article class="finding p2"><b>P2</b><h4>Permission failure signal</h4><p>The run output included EPERM for a synthetic local path.</p><p><strong>Suggested action:</strong> Record the command, working directory, and permission boundary before retrying.</p></article></div>
+    </section>
+    <section>
+      <h2>Git Diff Stat</h2>
+      <pre>src/report/render.ts | 10 +++++-----
+1 file changed, 5 insertions(+), 5 deletions(-)
+&lt;diff-check&gt;</pre>
+    </section>
+    <section class="section">
+      <h2>Output Files</h2>
+      <ul class="file-list">
+        <li>stdout: <code>stdout.log</code></li>
+        <li>stderr: <code>stderr.log</code></li>
+        <li>diff: <code>diff.patch</code></li>
+        <li>manifest: <code>manifest.json</code></li>
+        <li>markdown: <code>report.md</code></li>
+        <li>html: <code>report.html</code></li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

@@ -61,7 +61,7 @@
         "Tests pass"
       ],
       "priority": 4,
-      "passes": false,
+      "passes": true,
       "notes": "Local report rendering is in src/report/render.ts. Reuse Vitest snapshot/fixture testing for structured output regression; do not add a frontend framework or remote assets for static report polish."
     },
     {
