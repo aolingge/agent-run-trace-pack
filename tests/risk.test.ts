@@ -55,10 +55,12 @@ describe("risk analyzer", () => {
   });
 
   it("flags secret-like output", () => {
+    const githubToken = ["ghp", "syntheticRiskToken1234567890"].join("_");
+    const password = ["synthetic", "Password", "1234567890"].join("");
     const findings = analyzeRun(
       ["node", "synthetic.js"],
-      "token=ghp_syntheticRiskToken1234567890\n",
-      "password=syntheticPassword1234567890\n"
+      `token=${githubToken}\n`,
+      `password=${password}\n`
     );
 
     expect(findings.some((finding) => finding.id === "secret-like-output")).toBe(true);

@@ -9,10 +9,11 @@ import { runTrace } from "../src/core/trace.js";
 describe("trace runner", () => {
   it("writes a redacted trace pack", () => {
     const cwd = fs.mkdtempSync(path.join(os.tmpdir(), "agent-run-trace-"));
+    const githubToken = ["ghp", "1234567890abcdefghijklmnop"].join("_");
     const { manifest, traceDir } = runTrace({
       cwd,
       outDir: ".traces",
-      command: [process.execPath, "-e", "console.log('token=ghp_1234567890abcdefghijklmnop')"]
+      command: [process.execPath, "-e", `console.log('token=${githubToken}')`]
     });
 
     expect(manifest.exitCode).toBe(0);
@@ -23,8 +24,8 @@ describe("trace runner", () => {
 
   it("redacts stdout, stderr, diff, manifest, and reports before persistence", () => {
     const cwd = fs.mkdtempSync(path.join(os.tmpdir(), "agent-run-trace-redact-"));
-    const githubToken = "ghp_syntheticTraceToken1234567890";
-    const openAiKey = "sk-syntheticTraceOpenAIKey1234567890";
+    const githubToken = ["ghp", "syntheticTraceToken1234567890"].join("_");
+    const openAiKey = ["sk", "syntheticTraceOpenAIKey1234567890"].join("-");
     const authUrl = "https://trace-user:trace-pass@example.invalid/private";
     const rawValues = [githubToken, openAiKey, authUrl];
 

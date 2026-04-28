@@ -93,7 +93,7 @@
         "Tests pass"
       ],
       "priority": 6,
-      "passes": false,
+      "passes": true,
       "notes": "Existing package.json has smoke and scripts/release-dry-run.mjs. Reuse npm pack --dry-run --json and extend with thin local artifact checks rather than adding release-please, semantic-release, or hosted release automation."
     },
     {
@@ -108,7 +108,7 @@
         "Typecheck passes"
       ],
       "priority": 7,
-      "passes": false,
+      "passes": true,
       "notes": "Local repo already includes .github/workflows/ci.yml, dependabot, issue templates, and a PR template. Reuse GitHub's Node CI pattern with npm ci/check/test/build and keep OpenSSF Scorecard or release-please as later optional enhancements, not part of this manual-release-out-of-scope task."
     },
     {
@@ -127,7 +127,7 @@
         "Tests pass"
       ],
       "priority": 8,
-      "passes": false,
+      "passes": true,
       "notes": "This is the required final review story. Parent agent will push only after review. If credentials are ever needed for local verification, reuse existing logged-in browser sessions, OpenCLI, tool-native credential stores, Cockpit Tools, or the local encrypted AI secret vault and never write secret values to repo files, PRD, progress logs, docs, fixtures, Obsidian, memory, or chat summaries."
     }
   ]

@@ -52,6 +52,8 @@ The trace pack writes:
 - `.agent-traces/<trace-id>/report.md`
 - `.agent-traces/<trace-id>/report.html`
 
+The JSON report is `manifest.json`; no separate `report.json` file is written in v0.1.
+
 ## Why It Exists
 
 Coding agents increasingly read files, run commands, call tools, and edit repositories. When a run succeeds, fails, leaks a token-like value, or changes more than expected, maintainers need a compact local record that explains the command, output, diff, exit status, and risk signals without uploading source code.

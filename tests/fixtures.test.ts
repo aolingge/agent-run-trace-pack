@@ -20,6 +20,9 @@ interface SyntheticTraceFixture {
 }
 
 const fixtureRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), "fixtures", "synthetic-traces");
+const syntheticValues = {
+  githubToken: ["ghp", "syntheticTokenValue1234567890"].join("_")
+};
 
 function loadSyntheticTraceFixtures(): SyntheticTraceFixture[] {
   return fs
@@ -28,8 +31,12 @@ function loadSyntheticTraceFixtures(): SyntheticTraceFixture[] {
     .sort()
     .map((entry) => {
       const raw = fs.readFileSync(path.join(fixtureRoot, entry), "utf8");
-      return JSON.parse(raw) as SyntheticTraceFixture;
+      return JSON.parse(expandSyntheticPlaceholders(raw)) as SyntheticTraceFixture;
     });
+}
+
+function expandSyntheticPlaceholders(raw: string): string {
+  return raw.replaceAll("<SYNTHETIC_GITHUB_TOKEN_LIKE>", syntheticValues.githubToken);
 }
 
 describe("synthetic trace fixtures", () => {

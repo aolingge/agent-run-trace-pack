@@ -44,8 +44,9 @@
       .hero, .grid, .strip { display:block; }
       .hero { min-height:auto; padding:42px 0 52px; overflow:visible; }
       .links { font-size:13px; gap:8px; justify-content:flex-start; }
-      h1, .lead, .actions, .console { width:100%; max-width:calc(100vw - 32px); }
-      h1 { font-size:clamp(42px, 14vw, 58px); word-break:break-word; }
+      h1 { width:100%; max-width:358px; font-size:clamp(40px, 12.5vw, 52px); }
+      .lead, .actions, .console { width:100%; max-width:320px; }
+      h1 { word-break:break-word; }
       .lead { font-size:21px; word-break:break-word; }
       .actions { display:grid; grid-template-columns:1fr; }
       .button { text-align:center; }
@@ -73,7 +74,7 @@
       <div>
         <div class="eyebrow">Local coding-agent flight recorder</div>
         <h1>Make agent runs reviewable.</h1>
-        <p class="lead">Wrap Codex, Claude Code, Cursor, Gemini CLI, OpenCode, Goose, or any shell command and get a redacted local trace pack with output, git diff, exit status, and risk signals.</p>
+        <p class="lead">Wrap any coding-agent or shell command and get a redacted local trace pack with output, git diff, exit status, and risk signals.</p>
         <div class="actions">
           <a class="button" href="#quick-start">Source-mode quick start</a>
           <a class="button secondary" href="examples.md">Safe examples</a>

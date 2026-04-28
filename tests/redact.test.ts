@@ -3,20 +3,25 @@ import { containsSecretLikeValue, redactText } from "../src/core/redact.js";
 
 describe("redaction", () => {
   it("redacts common token-like values", () => {
+    const githubToken = ["ghp", "1234567890abcdefghijklmnop"].join("_");
+    const openAiKey = ["sk", "syntheticOpenAIKey1234567890"].join("-");
+    const awsKey = ["AKIA", "1234567890ABCDEF"].join("");
+    const googleKey = ["AIza", "SyntheticGoogleKey1234567890"].join("");
+    const password = ["super", "secret", "value", "123"].join("");
     const text = [
-      "token=ghp_1234567890abcdefghijklmnop",
-      "openai=sk-syntheticOpenAIKey1234567890",
-      "aws=AKIA1234567890ABCDEF",
-      "google=AIzaSyntheticGoogleKey1234567890",
-      "password=supersecretvalue123"
+      `token=${githubToken}`,
+      `openai=${openAiKey}`,
+      `aws=${awsKey}`,
+      `google=${googleKey}`,
+      `password=${password}`
     ].join("\n");
     const redacted = redactText(text);
 
-    expect(redacted).not.toContain("ghp_1234567890");
-    expect(redacted).not.toContain("sk-syntheticOpenAIKey");
-    expect(redacted).not.toContain("AKIA1234567890ABCDEF");
-    expect(redacted).not.toContain("AIzaSyntheticGoogleKey");
-    expect(redacted).not.toContain("supersecretvalue123");
+    expect(redacted).not.toContain(githubToken);
+    expect(redacted).not.toContain(openAiKey);
+    expect(redacted).not.toContain(awsKey);
+    expect(redacted).not.toContain(googleKey);
+    expect(redacted).not.toContain(password);
     expect(redacted).toContain("[REDACTED_GITHUB_TOKEN]");
     expect(redacted).toContain("[REDACTED_OPENAI_KEY]");
     expect(redacted).toContain("[REDACTED_AWS_ACCESS_KEY]");

@@ -39,7 +39,8 @@
     "test": "vitest run",
     "lint": "node scripts/lint.mjs",
     "check": "npm run lint && npm run typecheck && npm test && npm run build",
-    "smoke": "node dist/cli.js run --out .tmp/smoke -- node -e \"console.log('trace smoke')\"",
+    "smoke": "node dist/cli.js run --out .tmp/smoke -- node -e \"console.log('trace smoke')\" && node scripts/validate-trace.mjs .tmp/smoke",
+    "validate:trace": "node scripts/validate-trace.mjs",
     "demo": "node dist/cli.js run --out .tmp/demo -- node -e \"console.log('agent step'); console.error('warning: retry once')\""
   },
   "keywords": [

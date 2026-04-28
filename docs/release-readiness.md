@@ -31,8 +31,21 @@ The npm `files` allowlist is:
 - `LICENSE`
 - `dist/cli.js`
 - `docs/index.html`
+- `docs/examples.md`
+- `docs/launch-kit.md`
 - `docs/release-readiness.md`
 - `assets/social-preview.png`
+
+`npm run smoke` writes output only under the ignored `.tmp/smoke/` path and then runs `node scripts/validate-trace.mjs .tmp/smoke` to verify the trace artifacts:
+
+- `manifest.json`
+- `stdout.log`
+- `stderr.log`
+- `diff.patch`
+- `report.md`
+- `report.html`
+
+The smoke and release dry-run checks are local-only. They do not require network access, credentials, publish tokens, telemetry, hosted calls, or model-provider calls.
 
 ## Public Link Boundary
 

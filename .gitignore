@@ -4,3 +4,12 @@ dist/
 .agent-traces/
 *.tgz
 coverage/
+.playwright-mcp/
+progress*.md
+scripts/ralph/*.last.txt
+scripts/ralph/CLAUDE.md
+scripts/ralph/CODEX.md
+scripts/ralph/prompt.md
+scripts/ralph/task.md
+scripts/ralph/ralph.sh
+scripts/ralph/prd.json.example

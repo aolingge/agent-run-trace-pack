@@ -8,8 +8,17 @@ const requiredFiles = [
   "LICENSE",
   "dist/cli.js",
   "docs/index.html",
+  "docs/examples.md",
+  "docs/launch-kit.md",
   "docs/release-readiness.md",
   "assets/social-preview.png"
+];
+const forbiddenPackagePathPatterns = [
+  /^\.tmp\//,
+  /^\.agent-traces\//,
+  /^node_modules\//,
+  /^coverage\//,
+  /^scripts\/ralph\//
 ];
 
 const result = spawnSync("npm", ["pack", "--json", "--dry-run"], {
@@ -37,6 +46,23 @@ const missing = requiredFiles.filter((file) => !packedFiles.has(file));
 if (missing.length > 0) {
   console.error("release dry run: missing required files:");
   for (const file of missing) console.error(`- ${file}`);
+  process.exit(1);
+}
+
+const forbidden = [...packedFiles].filter((file) => forbiddenPackagePathPatterns.some((pattern) => pattern.test(file)));
+if (forbidden.length > 0) {
+  console.error("release dry run: package preview includes forbidden generated or private paths:");
+  for (const file of forbidden) console.error(`- ${file}`);
+  process.exit(1);
+}
+
+if (entry.name !== "agent-run-trace-pack") {
+  console.error(`release dry run: package name should be agent-run-trace-pack, got ${entry.name}`);
+  process.exit(1);
+}
+
+if (typeof entry.version !== "string" || entry.version.length === 0) {
+  console.error("release dry run: package version is missing");
   process.exit(1);
 }
 

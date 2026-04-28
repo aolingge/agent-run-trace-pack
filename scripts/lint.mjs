@@ -4,7 +4,14 @@ import process from "node:process";
 
 const root = process.cwd();
 const checkedExtensions = new Set([".ts", ".js", ".mjs", ".md", ".json", ".yml", ".yaml", ".html", ".svg"]);
-const ignoredDirs = new Set([".git", "node_modules", "dist", "coverage", ".tmp", ".agent-traces"]);
+const ignoredDirs = new Set([".git", "node_modules", "dist", "coverage", ".tmp", ".agent-traces", ".playwright-mcp"]);
+const ignoredFilePatterns = [
+  /^progress.*\.md$/,
+  /^scripts\/ralph\/.*\.last\.txt$/,
+  /^scripts\/ralph\/(?:CLAUDE|CODEX|prompt|task)\.md$/,
+  /^scripts\/ralph\/ralph\.sh$/,
+  /^scripts\/ralph\/prd\.json\.example$/
+];
 const problems = [];
 
 function walk(dir) {
@@ -18,6 +25,7 @@ function walk(dir) {
     if (!checkedExtensions.has(path.extname(entry.name))) continue;
     const text = fs.readFileSync(full, "utf8");
     const rel = path.relative(root, full).replaceAll("\\", "/");
+    if (ignoredFilePatterns.some((pattern) => pattern.test(rel))) continue;
     if (/\r\n/.test(text)) problems.push(`${rel}: use LF line endings`);
     if (/[ \t]$/m.test(text)) problems.push(`${rel}: remove trailing whitespace`);
     if (!text.endsWith("\n")) problems.push(`${rel}: add final newline`);
