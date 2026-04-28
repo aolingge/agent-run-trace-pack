@@ -77,7 +77,7 @@
         "Typecheck passes"
       ],
       "priority": 5,
-      "passes": false,
+      "passes": true,
       "notes": "Local repo already has README.md, docs/index.html, assets, CONTRIBUTING.md, SECURITY.md, and GitHub templates. Reuse those surfaces and add thin docs/examples; GitHub PR and issue templates already exist, so only refine them if a concrete gap appears."
     },
     {

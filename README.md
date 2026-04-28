@@ -26,6 +26,15 @@ Future npm usage, not available until publication:
 npx agent-run-trace-pack run -- npm test
 ```
 
+## Docs
+
+- [Source-mode quick start](#quick-start)
+- [Safe command examples](docs/examples.md)
+- [Safety model](#safety-model)
+- [Report preview](#report-preview)
+- [Release readiness](docs/release-readiness.md)
+- [Maintainer launch kit](docs/launch-kit.md)
+
 ## Pre-Release Package Contract
 
 Current package metadata targets Node `>=20` and exposes `agent-run-trace-pack` and `artrace` after `npm run build`.
@@ -64,6 +73,8 @@ artrace run --out .tmp/traces -- codex --help
 artrace run -- gemini --help
 artrace summarize .agent-traces/2026-04-28T10-00-00-000Z
 ```
+
+More source-mode examples are in [docs/examples.md](docs/examples.md), including synthetic Codex, Claude Code, Gemini CLI, OpenCode, and Goose-style commands.
 
 ## What It Captures
 

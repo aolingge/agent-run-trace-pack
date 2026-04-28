@@ -8,6 +8,7 @@ Started: 2026-04-28T15:15:25
 - CLI tests import `main` from `src/cli.ts`; keep the direct-run guard so importing the CLI does not execute process-exit behavior.
 - Run detectors on raw command/output, then redact command fields and finding evidence before writing manifest or reports.
 - Report rendering fixtures live in `tests/fixtures/report-manifest.json` plus `tests/fixtures/expected-reports/`; verify HTML through localhost when Playwright blocks direct `file:` URLs.
+- Launch docs are split between `docs/examples.md` for synthetic source-mode commands and `docs/launch-kit.md` for maintainer review; keep README and `docs/index.html` linked to quick start, examples, safety, report preview, and release readiness.
 ---
 
 ## 2026-04-28 15:27:26 +08:00 - US-001
@@ -126,4 +127,34 @@ Started: 2026-04-28T15:15:25
   - Pattern discovered: report rendering regressions should compare against committed expected Markdown/HTML fixtures rather than loose string checks only.
   - Gotcha encountered: Playwright MCP blocks direct `file:` URLs here; serving the fixture over `127.0.0.1` is the reliable local browser verification path.
   - Useful context for the next iteration: report HTML now has no external assets or script tags, and browser checks can assert `document.documentElement.scrollWidth <= window.innerWidth` at mobile width.
+---
+
+## 2026-04-28 16:21:43 +08:00 - US-005
+- What was implemented
+  - Added `docs/examples.md` with source-mode npm test wrapping plus synthetic Codex, Claude Code, Gemini CLI, OpenCode, and Goose-style commands.
+  - Added `docs/launch-kit.md` with maintainer checklist, demo command, FAQ/troubleshooting, and P0/P1/P2 backlog.
+  - Linked README and `docs/index.html` to source-mode quick start, examples, safety model, report preview, release readiness, and launch kit.
+  - Added a local favicon link and responsive doc-page polish after browser smoke found a favicon 404 and mobile overflow risk.
+- Files changed
+  - `README.md`
+  - `docs/index.html`
+  - `docs/examples.md`
+  - `docs/launch-kit.md`
+  - `scripts/ralph/prd.json`
+  - `scripts/ralph/progress.txt`
+- Verification run
+  - `npm run typecheck` passed.
+  - `git diff --check -- README.md docs\index.html docs\examples.md docs\launch-kit.md` passed.
+  - Targeted docs lint passed for LF endings, final newlines, no trailing whitespace, and no `API_KEY`-style literals.
+  - Browser verification served the repo at `http://127.0.0.1:4173/docs/index.html`; all local doc links returned 200, no script tags or external assets were present, and no horizontal overflow was detected.
+  - Browser opened `docs/examples.md` and confirmed Codex-style and Goose-style examples rendered as text. The report preview link fetched as `200 image/svg+xml`; direct SVG navigation timed out, so the verified link fetch was used as evidence instead of retrying that path.
+  - Targeted secret/private-surface scan found only pre-existing public shields.io README badge URLs.
+- Self-review result and remaining P2/P3 risks, if any
+  - P0/P1: none found. US-005 acceptance criteria are covered by the new examples, launch kit, README/docs index links, synthetic-only content, browser verification, and passing typecheck.
+  - P2/P3: Markdown docs render as plain text under a bare static server until a docs site is chosen; this is recorded in `docs/launch-kit.md`.
+  - P2/P3: concurrent unrelated working-tree changes appeared in CI, lint, smoke validation, and release-dry-run files during this iteration; they were left unstaged for their owning story.
+- Learnings for future iterations:
+  - Pattern discovered: keep launch docs thin and source-mode oriented, with `docs/index.html` acting as the local navigation hub.
+  - Gotcha encountered: browser verification can create `.playwright-mcp`; remove generated verification artifacts before committing.
+  - Useful context for the next iteration: direct navigation to SVG assets may time out in Playwright MCP even when link fetch returns `200 image/svg+xml`; verify the link status and avoid repeated retries.
 ---
