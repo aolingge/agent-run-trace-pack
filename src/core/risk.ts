@@ -3,7 +3,7 @@ import { containsSecretLikeValue } from "./redact.js";
 
 const destructivePatterns = [
   /\brm\s+-rf\b/i,
-  /\bRemove-Item\b.*\b-Recurse\b/i,
+  /\bRemove-Item\b.*-Recurse\b/i,
   /\bgit\s+reset\s+--hard\b/i,
   /\bgh\s+repo\s+delete\b/i
 ];

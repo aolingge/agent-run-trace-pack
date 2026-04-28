@@ -2,12 +2,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 import { runTrace } from "./core/trace.js";
 import { captureGitSnapshot } from "./core/git.js";
 
 const version = "0.1.0";
 
-async function main(argv: string[]): Promise<number> {
+export async function main(argv: string[]): Promise<number> {
   const [command, ...rest] = argv;
 
   if (!command || command === "--help" || command === "-h") {
@@ -135,11 +136,18 @@ Examples:
 `);
 }
 
-main(process.argv.slice(2))
-  .then((code) => {
-    process.exitCode = code;
-  })
-  .catch((error: unknown) => {
-    console.error(error instanceof Error ? error.message : String(error));
-    process.exitCode = 1;
-  });
+function isDirectRun(): boolean {
+  const entry = process.argv[1];
+  return Boolean(entry && path.resolve(entry) === fileURLToPath(import.meta.url));
+}
+
+if (isDirectRun()) {
+  main(process.argv.slice(2))
+    .then((code) => {
+      process.exitCode = code;
+    })
+    .catch((error: unknown) => {
+      console.error(error instanceof Error ? error.message : String(error));
+      process.exitCode = 1;
+    });
+}

@@ -30,7 +30,11 @@ export function runTrace(options: RunOptions): RunResult {
   const stderr = redactText(result.stderr ?? "");
   const diff = redactText(captureGitDiff(options.cwd));
   const gitAfter = captureGitSnapshot(options.cwd);
-  const findings = analyzeRun(command, result.stdout ?? "", result.stderr ?? "");
+  const findings = analyzeRun(command, result.stdout ?? "", result.stderr ?? "").map((finding) => ({
+    ...finding,
+    evidence: finding.evidence ? redactText(finding.evidence) : undefined
+  }));
+  const redactedCommand = command.map((part) => redactText(part));
 
   fs.writeFileSync(path.join(traceDir, "stdout.log"), stdout);
   fs.writeFileSync(path.join(traceDir, "stderr.log"), stderr);
@@ -40,7 +44,7 @@ export function runTrace(options: RunOptions): RunResult {
     schemaVersion: 1,
     tool: "agent-run-trace-pack",
     traceId,
-    command,
+    command: redactedCommand,
     cwd: options.cwd,
     startedAt: startedAtDate.toISOString(),
     endedAt: endedAtDate.toISOString(),

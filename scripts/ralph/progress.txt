@@ -5,6 +5,8 @@ Started: 2026-04-28T15:15:25
 ## Codebase Patterns
 - Package preview contract is defined by `package.json` `files` plus `scripts/release-dry-run.mjs`, which uses `npm pack --dry-run --json`; keep `docs/release-readiness.md` in sync with both.
 - Synthetic trace fixtures live under `tests/fixtures/synthetic-traces/` as data-only JSON files; load them in sorted filename order and keep fixture commands as input data, not executable test steps.
+- CLI tests import `main` from `src/cli.ts`; keep the direct-run guard so importing the CLI does not execute process-exit behavior.
+- Run detectors on raw command/output, then redact command fields and finding evidence before writing manifest or reports.
 ---
 
 ## 2026-04-28 15:27:26 +08:00 - US-001
@@ -61,4 +63,36 @@ Started: 2026-04-28T15:15:25
   - Pattern discovered: keep fixture commands as data-only examples and validate them through existing local analyzers instead of executing synthetic commands.
   - Gotcha encountered: the repository lint walks untracked Markdown/JSON/TS files, so Ralph helper artifacts can fail global lint even when story files are clean.
   - Useful context for the next iteration: `tests/fixtures.test.ts` is the central deterministic loader for synthetic trace fixture coverage.
+---
+
+## 2026-04-28 15:50:14 +08:00 - US-003
+- What was implemented
+  - Added in-process CLI behavior coverage for `run`, `summarize`, `doctor`, `init`, missing separator, unknown command, and nonzero wrapped command exits using local synthetic Node commands.
+  - Expanded risk detector tests for destructive commands, publish/release commands, pipe-to-shell commands, permission variants, and secret-like output.
+  - Expanded redaction coverage for common token-like values, authenticated URLs, stdout, stderr, git diff, manifest command fields, Markdown report content, HTML report content, and finding evidence.
+  - Fixed `Remove-Item -Recurse` detection, corrected key-value secret replacement, and redacted persisted command/finding evidence before writing trace manifests and reports.
+- Files changed
+  - `src/cli.ts`
+  - `src/core/redact.ts`
+  - `src/core/risk.ts`
+  - `src/core/trace.ts`
+  - `tests/cli.test.ts`
+  - `tests/redact.test.ts`
+  - `tests/risk.test.ts`
+  - `tests/trace.test.ts`
+  - `scripts/ralph/prd.json`
+  - `scripts/ralph/progress.txt`
+- Verification run
+  - `npm run typecheck` passed.
+  - `npm test` passed: 5 test files, 18 tests.
+  - `npm run build` passed.
+  - `git diff --check -- src\cli.ts src\core\redact.ts src\core\risk.ts src\core\trace.ts tests\cli.test.ts tests\risk.test.ts tests\redact.test.ts tests\trace.test.ts` passed.
+  - `npm run check` was attempted and failed at pre-existing untracked CRLF Markdown files outside this story: `progress-019dd2f1-6c45-74a1-8423-936bd58a88df.md`, `progress.md`, `scripts/ralph/CLAUDE.md`, `scripts/ralph/prompt.md`, and `scripts/ralph/task.md`.
+- Self-review result and remaining P2/P3 risks, if any
+  - P0/P1: none found. Acceptance criteria are covered by CLI tests, detector tests, redaction persistence tests, passing typecheck, and passing tests.
+  - P2/P3: full `npm run check` remains blocked by unrelated untracked CRLF helper files created before this iteration; this story did not normalize or commit those files.
+- Learnings for future iterations:
+  - Pattern discovered: test CLI behavior by importing `main` and using temp directories; keep actual wrapped commands local and synthetic.
+  - Gotcha encountered: the lint guard flags `API_KEY`-shaped synthetic literals even in tests, so secret-like fixtures should avoid raw `API_KEY=` forms unless dynamically constructed.
+  - Useful context for the next iteration: persisted trace surfaces now redact command args and finding evidence before manifest/report writing; report polish should preserve that contract.
 ---
