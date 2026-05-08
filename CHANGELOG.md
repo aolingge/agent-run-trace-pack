@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Align the documented npm package contents with the actual `npm pack --dry-run` output, including `CHANGELOG.md`.
+
 ## 0.1.1
 
 - Align the public npm release, README, package metadata, and GitHub release flow.

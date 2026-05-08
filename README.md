@@ -42,7 +42,7 @@ node dist/cli.js run -- npm test
 
 Current package metadata targets Node `>=20` and exposes `agent-run-trace-pack` and `artrace`.
 
-The package preview is limited to the npm `files` allowlist: `dist`, `docs`, `assets`, `README.md`, and `LICENSE`, plus npm's required package metadata. `docs/release-readiness.md` records the exact local checks used to verify that preview.
+The package preview is limited to the npm `files` allowlist: `dist`, `docs`, `assets`, `README.md`, `CHANGELOG.md`, and `LICENSE`, plus npm's required package metadata. `docs/release-readiness.md` records the exact local checks used to verify that preview.
 
 The trace pack writes:
 
