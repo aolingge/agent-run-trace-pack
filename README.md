@@ -33,6 +33,7 @@ node dist/cli.js run -- npm test
 
 - [Quick start](#quick-start)
 - [Safe command examples](docs/examples.md)
+- [Command guide](docs/commands.md)
 - [Safety model](#safety-model)
 - [Report preview](#report-preview)
 - [Release readiness](docs/release-readiness.md)
@@ -78,6 +79,7 @@ artrace summarize .agent-traces/2026-04-28T10-00-00-000Z
 ```
 
 More examples are in [docs/examples.md](docs/examples.md), including synthetic Codex, Claude Code, Gemini CLI, OpenCode, and Goose-style commands.
+Use [docs/commands.md](docs/commands.md) when choosing between `run`, `summarize`, `doctor`, and `init`.
 
 ## What It Captures
 
