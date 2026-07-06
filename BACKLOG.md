@@ -8,6 +8,7 @@
 
 ## Governance Follow-Up
 
-- [ ] Review Dependabot PR #10 (`vitest` 4.1.7) after CI green status is rechecked.
-- [ ] Review Dependabot PR #11 (`@types/node` 25.9.1) after CI green status is rechecked.
-- [ ] Review the 3 local commits currently ahead of `origin/main` before any explicit push/PR decision.
+- [ ] Review Dependabot PR #18 (`@types/node` 26.0.1) after CI green status is rechecked.
+- [ ] Review Dependabot PR #16 (`actions/checkout` 7) after CI green status is rechecked.
+- [ ] Review Dependabot PR #15 (`vitest` 4.1.9) after CI green status is rechecked.
+- [ ] Review the 4 local commits currently ahead of `origin/main` before any explicit push/PR decision.
