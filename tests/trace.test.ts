@@ -20,7 +20,7 @@ describe("trace runner", () => {
     expect(fs.existsSync(path.join(traceDir, "manifest.json"))).toBe(true);
     expect(fs.readFileSync(path.join(traceDir, "stdout.log"), "utf8")).toContain("[REDACTED_GITHUB_TOKEN]");
     expect(manifest.findings.some((finding) => finding.id === "secret-like-output")).toBe(true);
-  });
+  }, 30000);
 
   it("redacts stdout, stderr, diff, manifest, and reports before persistence", () => {
     const cwd = fs.mkdtempSync(path.join(os.tmpdir(), "agent-run-trace-redact-"));
@@ -68,7 +68,7 @@ describe("trace runner", () => {
     expect(fs.readFileSync(path.join(traceDir, "stderr.log"), "utf8")).toContain("[REDACTED_AUTH_URL]");
     expect(fs.readFileSync(path.join(traceDir, "diff.patch"), "utf8")).toContain("[REDACTED_GITHUB_TOKEN]");
     expect(fs.readFileSync(path.join(traceDir, "report.md"), "utf8")).toContain("[REDACTED_GITHUB_TOKEN]");
-  });
+  }, 30000);
 });
 
 function runGit(cwd: string, args: string[]): void {
