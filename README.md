@@ -1,4 +1,4 @@
-![Agent Run Trace Pack](assets/readme-banner.svg)
+![Agent Run Trace Pack](https://raw.githubusercontent.com/aolingge/aolingge/main/assets/developer-cover.png)
 
 # Agent Run Trace Pack
 
@@ -10,6 +10,15 @@ Record local coding-agent runs into redacted, reviewable trace packs.
 [![Node](https://img.shields.io/badge/node-%3E%3D20-315f9f.svg)](package.json)
 
 Agent Run Trace Pack is a local-first CLI for maintainers and teams using Codex, Claude Code, Cursor, Gemini CLI, OpenCode, Goose, GitHub Copilot coding workflows, or MCP-based tooling. It wraps a command, records what happened, redacts sensitive output, captures git state, and writes a shareable report.
+
+## Project guide
+
+| Area | Details |
+| --- | --- |
+| **For** | Developers who need to review what a local coding-agent command actually did. |
+| **Workflow** | Wrap a command, inspect its exit status and redacted output, then review the captured Git state and report. |
+| **Output** | A local trace directory with a JSON manifest, logs, diff and Markdown/HTML reports. |
+| **Start** | [Quick start](#quick-start) · [Command guide](docs/commands.md) · [Safe examples](docs/examples.md) |
 
 ## Quick Start
 
