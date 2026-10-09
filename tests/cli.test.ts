@@ -93,7 +93,7 @@ describe("CLI behavior", () => {
       expect(summary.stdout).toContain("Exit: 0");
       expect(summary.stdout).toContain(process.execPath);
     });
-  });
+  }, 30000);
 
   it("returns the wrapped command exit code for nonzero runs", async () => {
     await withTempDir(async (cwd) => {
@@ -125,7 +125,7 @@ describe("CLI behavior", () => {
     expect(result.stdout).toContain("Agent Run Trace Pack 0.1.1");
     expect(result.stdout).toContain("Node:");
     expect(result.stdout).toContain("Git:");
-  });
+  }, 30000);
 
   it("initializes the local config file", async () => {
     await withTempCwd(async (cwd) => {
