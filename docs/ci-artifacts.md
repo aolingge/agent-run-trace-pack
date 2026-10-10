@@ -67,6 +67,8 @@ jobs:
 
 The job intentionally remains failed because the capture step returns 7. `always()` lets the upload run after that failure; it does not turn the failure into success. If installation/build fails before capture, there may be no trace, and upload reports a warning.
 
+The wrapper preserves a completed child's exit code. If the process cannot start or capture fails, it returns 1 and records an additive `executionError` with a fixed description in the manifest and reports. For example, `ENOENT` means the executable or working directory was not found. `ENOBUFS` means the existing 1 MiB capture limit was exceeded: the child may have been terminated and saved output may be incomplete. A real termination signal remains in the manifest's `signal` field; it is not a substitute for the capture error. Correct the cause and rerun before relying on the transcript. Native error messages and spawn argument objects are not persisted.
+
 The upload allowlist excludes raw logs and `diff.patch`; reports still contain command, repository and finding metadata. Use this automatic upload only for synthetic or already reviewed data. Inspect real traces locally before sharing, and do not broaden the path to the repository root or enable hidden files merely to resolve a missing-file warning. Repository retention/access policy still applies.
 
 The official [upload-artifact documentation](https://github.com/actions/upload-artifact/tree/v7.0.2#usage) describes missing-file handling, retention and hidden-file inputs. This version is for GitHub.com; see its compatibility notes before adapting it to GitHub Enterprise Server. The application runtime remains Node 20 here; each Action has its own runner runtime.

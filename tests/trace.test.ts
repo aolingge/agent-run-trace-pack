@@ -7,6 +7,43 @@ import { describe, expect, it } from "vitest";
 import { runTrace } from "../src/core/trace.js";
 
 describe("trace runner", () => {
+  it("explains a missing executable without inventing an exit code or signal", () => {
+    const cwd = fs.mkdtempSync(path.join(os.tmpdir(), "agent-run-trace-missing-"));
+    const syntheticToken = ["ghp", "syntheticMissingToken1234567890"].join("_");
+    const { manifest, traceDir } = runTrace({
+      cwd,
+      outDir: ".traces",
+      command: [path.join(cwd, "absent-command"), syntheticToken]
+    });
+
+    expect(manifest).toMatchObject({ exitCode: null, signal: null, executionError: { code: "ENOENT" } });
+    expect(manifest.findings.some((finding) => finding.id === "execution-error")).toBe(true);
+    for (const file of ["manifest.json", "report.md", "report.html"]) {
+      const text = fs.readFileSync(path.join(traceDir, file), "utf8");
+      expect(text).toContain("ENOENT");
+      expect(text).not.toContain("signal unknown");
+      expect(text).not.toContain(syntheticToken);
+      expect(text).not.toContain("spawnargs");
+    }
+  }, 30000);
+
+  it("marks output-limit termination and incomplete capture", () => {
+    const cwd = fs.mkdtempSync(path.join(os.tmpdir(), "agent-run-trace-buffer-"));
+    const { manifest, traceDir } = runTrace({
+      cwd,
+      outDir: ".traces",
+      command: [process.execPath, "-e", "process.stdout.write('x'.repeat(2 * 1024 * 1024))"]
+    });
+
+    expect(manifest).toMatchObject({ executionError: { code: "ENOBUFS" } });
+    expect(manifest.findings.some((finding) => finding.id === "execution-error")).toBe(true);
+    for (const file of ["report.md", "report.html"]) {
+      const text = fs.readFileSync(path.join(traceDir, file), "utf8");
+      expect(text).toContain("ENOBUFS");
+      expect(text).toContain("incomplete");
+    }
+  }, 30000);
+
   it("writes a redacted trace pack", () => {
     const cwd = fs.mkdtempSync(path.join(os.tmpdir(), "agent-run-trace-"));
     const githubToken = ["ghp", "1234567890abcdefghijklmnop"].join("_");

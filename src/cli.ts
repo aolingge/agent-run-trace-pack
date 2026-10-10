@@ -5,6 +5,8 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { runTrace } from "./core/trace.js";
 import { captureGitSnapshot } from "./core/git.js";
+import { formatExecutionStatus } from "./core/execution.js";
+import type { TraceManifest } from "./types.js";
 
 const version = "0.1.1";
 
@@ -52,10 +54,10 @@ function runCommand(args: string[]): number {
 
   const { manifest, traceDir } = runTrace({ cwd, outDir, command: wrappedCommand });
   console.log(`Agent Run Trace Pack ${version}`);
-  console.log(`Trace ${manifest.traceId} | exit ${manifest.exitCode ?? "signal"} | findings ${manifest.findings.length}`);
+  console.log(`Trace ${manifest.traceId} | ${formatExecutionStatus(manifest)} | findings ${manifest.findings.length}`);
   console.log(`Report: ${path.relative(process.cwd(), path.join(traceDir, "report.md"))}`);
   console.log(`HTML: ${path.relative(process.cwd(), path.join(traceDir, "report.html"))}`);
-  return manifest.exitCode ?? 1;
+  return manifest.executionError ? 1 : manifest.exitCode ?? 1;
 }
 
 function doctor(_args: string[]): number {
@@ -99,16 +101,10 @@ function summarize(args: string[]): number {
     console.error(`No manifest.json found in ${traceDir}`);
     return 1;
   }
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as {
-    traceId: string;
-    command: string[];
-    exitCode: number | null;
-    durationMs: number;
-    findings: unknown[];
-  };
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as TraceManifest;
   console.log(`Trace ${manifest.traceId}`);
   console.log(`Command: ${manifest.command.join(" ")}`);
-  console.log(`Exit: ${manifest.exitCode ?? "signal"}`);
+  console.log(`Exit: ${manifest.executionError || manifest.exitCode === null ? formatExecutionStatus(manifest) : manifest.exitCode}`);
   console.log(`Duration: ${manifest.durationMs}ms`);
   console.log(`Findings: ${manifest.findings.length}`);
   return 0;

@@ -127,6 +127,32 @@ describe("CLI behavior", () => {
     expect(result.stdout).toContain("Git:");
   }, 30000);
 
+  it("reports a failed start consistently in run and summarize", async () => {
+    await withTempDir(async (cwd) => {
+      const run = await invokeCli(["run", "--cwd", cwd, "--out", ".traces", "--", path.join(cwd, "absent-command")]);
+      expect(run.code).toBe(1);
+      expect(run.stdout).toContain("execution error ENOENT");
+      expect(run.stdout).not.toContain("exit signal");
+      const summary = await invokeCli(["summarize", singleTraceDir(cwd, ".traces")]);
+      expect(summary.code).toBe(0);
+      expect(summary.stdout).toContain("execution error ENOENT");
+      expect(summary.stdout).not.toContain("Exit: signal");
+    });
+  }, 30000);
+
+  it("returns failure when output capture exceeds the buffer limit", async () => {
+    await withTempDir(async (cwd) => {
+      const run = await invokeCli([
+        "run", "--cwd", cwd, "--out", ".traces", "--", process.execPath,
+        "-e", "process.stdout.write('x'.repeat(2 * 1024 * 1024))"
+      ]);
+      expect(run.code).toBe(1);
+      expect(run.stdout).toContain("execution error ENOBUFS");
+      const summary = await invokeCli(["summarize", singleTraceDir(cwd, ".traces")]);
+      expect(summary.stdout).toContain("execution error ENOBUFS");
+    });
+  }, 30000);
+
   it("initializes the local config file", async () => {
     await withTempCwd(async (cwd) => {
       const result = await invokeCli(["init"]);
