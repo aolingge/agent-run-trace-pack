@@ -66,6 +66,8 @@ node dist/cli.js run --out .tmp/examples/goose -- node -e "console.log('goose-st
 
 ## Review A Trace
 
+The [CI failure example](ci-artifacts.md) includes a synthetic exit-7 fixture, a redacted transcript and a manual artifact-upload recipe that preserves a failed job's status.
+
 Each run writes a timestamped trace directory below the selected `--out` path. Review the generated `manifest.json`, `report.md`, and `report.html` before sharing anything outside a private workspace.
 
 ```bash

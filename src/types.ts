@@ -29,6 +29,7 @@ export interface TraceManifest {
   durationMs: number;
   exitCode: number | null;
   signal: NodeJS.Signals | null;
+  executionError?: ExecutionError;
   gitBefore: GitSnapshot;
   gitAfter: GitSnapshot;
   findings: RiskFinding[];
@@ -40,6 +41,11 @@ export interface TraceManifest {
     html: string;
     json: string;
   };
+}
+
+export interface ExecutionError {
+  code: "ENOENT" | "EACCES" | "EPERM" | "ENOBUFS" | "EINVAL" | "UNKNOWN";
+  message: string;
 }
 
 export interface RunOptions {

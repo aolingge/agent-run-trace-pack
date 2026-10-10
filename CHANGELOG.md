@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Explain process-start and output-capture failures in CLI summaries and reports without persisting native Error details; preserve child exit codes and flag incomplete output.
+- Add a synthetic CI failure fixture and a manual, pinned artifact-upload recipe; refresh stale maintenance snapshots.
+
 - Align the documented npm package contents with the actual `npm pack --dry-run` output, including `CHANGELOG.md`.
 
 ## 0.1.1

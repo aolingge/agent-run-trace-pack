@@ -1,4 +1,5 @@
 import type { GitSnapshot, RiskFinding, Severity, TraceManifest } from "../types.js";
+import { formatExecutionStatus } from "../core/execution.js";
 
 const severityOrder: Severity[] = ["P0", "P1", "P2", "P3"];
 
@@ -9,7 +10,7 @@ export function renderMarkdownReport(manifest: TraceManifest): string {
     "## Trace Summary",
     "",
     `- Trace: \`${manifest.traceId}\``,
-    `- Exit or signal: \`${formatExitOrSignal(manifest)}\``,
+    `- Exit or signal: \`${formatExecutionStatus(manifest)}\``,
     `- Duration: \`${manifest.durationMs}ms\``,
     `- Working directory: \`${manifest.cwd}\``,
     `- Started: \`${manifest.startedAt}\``,
@@ -119,7 +120,7 @@ export function renderHtmlReport(manifest: TraceManifest): string {
       <p class="quiet">Trace ${escapeHtml(manifest.traceId)}</p>
     </section>
     <section class="grid">
-      <div class="metric"><b>Exit or signal</b><span>${escapeHtml(formatExitOrSignal(manifest))}</span></div>
+      <div class="metric"><b>Exit or signal</b><span>${escapeHtml(formatExecutionStatus(manifest))}</span></div>
       <div class="metric"><b>Duration</b><span>${escapeHtml(String(manifest.durationMs))}ms</span></div>
       <div class="metric"><b>Findings</b><span>${manifest.findings.length}</span></div>
     </section>
@@ -205,11 +206,6 @@ function groupFindingsBySeverity(findings: RiskFinding[]): Map<Severity, RiskFin
     grouped.set(finding.severity, [...(grouped.get(finding.severity) ?? []), finding]);
   }
   return grouped;
-}
-
-function formatExitOrSignal(manifest: TraceManifest): string {
-  if (manifest.exitCode !== null) return `exit ${manifest.exitCode}`;
-  return manifest.signal ? `signal ${manifest.signal}` : "signal unknown";
 }
 
 function codeFence(value: string): string {

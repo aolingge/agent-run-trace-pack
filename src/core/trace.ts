@@ -7,6 +7,7 @@ import { redactText } from "./redact.js";
 import { analyzeRun } from "./risk.js";
 import { renderHtmlReport, renderMarkdownReport } from "../report/render.js";
 import { resolveCommand } from "./shell.js";
+import { describeExecutionError } from "./execution.js";
 
 export function runTrace(options: RunOptions): RunResult {
   if (options.command.length === 0) throw new Error("No command provided after --");
@@ -22,7 +23,8 @@ export function runTrace(options: RunOptions): RunResult {
     cwd: options.cwd,
     encoding: "utf8",
     shell: false,
-    windowsHide: true
+    windowsHide: true,
+    maxBuffer: 1024 * 1024
   });
 
   const endedAtDate = new Date();
@@ -35,6 +37,19 @@ export function runTrace(options: RunOptions): RunResult {
     evidence: finding.evidence ? redactText(finding.evidence) : undefined
   }));
   const redactedCommand = command.map((part) => redactText(part));
+  const executionError = describeExecutionError(result.error);
+  if (executionError) {
+    findings.push({
+      id: "execution-error",
+      severity: "P1",
+      title: `Command execution failed (${executionError.code})`,
+      detail: executionError.message,
+      evidence: undefined,
+      suggestion: executionError.code === "ENOBUFS"
+        ? "Reduce command output and run again; do not treat this capture as a complete transcript."
+        : "Check the executable, working directory, permissions and platform invocation, then run again."
+    });
+  }
 
   fs.writeFileSync(path.join(traceDir, "stdout.log"), stdout);
   fs.writeFileSync(path.join(traceDir, "stderr.log"), stderr);
@@ -51,6 +66,7 @@ export function runTrace(options: RunOptions): RunResult {
     durationMs: endedAtDate.getTime() - startedAtDate.getTime(),
     exitCode: result.status,
     signal: result.signal,
+    ...(executionError ? { executionError } : {}),
     gitBefore,
     gitAfter,
     findings,
