@@ -90,6 +90,8 @@ artrace summarize .agent-traces/2026-04-28T10-00-00-000Z
 More examples are in [docs/examples.md](docs/examples.md), including synthetic Codex, Claude Code, Gemini CLI, OpenCode, and Goose-style commands.
 Use [docs/commands.md](docs/commands.md) when choosing between `run`, `summarize`, `doctor`, and `init`.
 
+For a reproducible failing command and a manual GitHub Actions artifact recipe, see [CI failure traces](docs/ci-artifacts.md).
+
 ## What It Captures
 
 | Surface | What gets recorded |

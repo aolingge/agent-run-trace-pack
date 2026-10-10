@@ -2,6 +2,7 @@ node_modules/
 dist/
 .tmp/
 .agent-traces/
+trace-artifacts/
 *.tgz
 coverage/
 .playwright-mcp/
