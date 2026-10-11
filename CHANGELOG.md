@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Improve HTML report contrast and long-path wrapping, and make preformatted command, evidence and diff regions keyboard accessible.
 - Align the documented npm package contents with the actual `npm pack --dry-run` output, including `CHANGELOG.md`.
 
 ## 0.1.1

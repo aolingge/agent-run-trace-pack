@@ -73,7 +73,7 @@ export function renderHtmlReport(manifest: TraceManifest): string {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Agent Run Trace ${escapeHtml(manifest.traceId)}</title>
   <style>
-    :root { --ink:#181714; --paper:#f7f8fb; --panel:#fff; --line:#d8dee8; --blue:#315f9f; --red:#b42318; --amber:#b46917; --green:#1f7a5b; --muted:#526071; }
+    :root { --ink:#181714; --paper:#f7f8fb; --panel:#fff; --line:#d8dee8; --blue:#315f9f; --red:#b42318; --amber:#a45d12; --green:#1f7a5b; --muted:#526071; }
     * { box-sizing: border-box; }
     body { margin:0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:var(--ink); background:var(--paper); }
     main { width:min(1080px, calc(100% - 32px)); margin:0 auto; padding:40px 0; }
@@ -83,8 +83,8 @@ export function renderHtmlReport(manifest: TraceManifest): string {
     h4 { margin:8px 0; }
     code, pre, .mono { font-family: ui-monospace, Consolas, monospace; }
     .panel { background:var(--panel); border:3px solid var(--ink); padding:24px; box-shadow:10px 10px 0 #c8d4e8; }
-    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:24px 0; }
-    .metric, .finding { background:var(--panel); border:1px solid var(--line); padding:18px; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin:24px 0; }
+    .metric, .finding { background:var(--panel); border:1px solid var(--line); padding:18px; min-width:0; overflow-wrap:anywhere; }
     .metric b { display:block; font-size:13px; color:var(--muted); text-transform:uppercase; }
     .metric span { display:block; margin-top:6px; font-size:22px; color:var(--blue); overflow-wrap:anywhere; }
     .section { background:var(--panel); border:1px solid var(--line); padding:18px; margin:16px 0; }
@@ -103,6 +103,7 @@ export function renderHtmlReport(manifest: TraceManifest): string {
     .finding + .finding { margin-top:12px; }
     .quiet { color:var(--muted); }
     pre { overflow:auto; background:#181714; color:#f7f8fb; padding:16px; border-radius:4px; }
+    pre:focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
     @media (max-width: 760px) {
       main { width:min(100% - 20px, 1080px); padding:24px 0; }
       h1 { font-size:32px; }
@@ -131,7 +132,7 @@ export function renderHtmlReport(manifest: TraceManifest): string {
         <dt>Ended</dt><dd><code>${escapeHtml(manifest.endedAt)}</code></dd>
       </dl>
       <h3>Command</h3>
-      <pre>${escapeHtml(command)}</pre>
+      <pre tabindex="0" role="region" aria-label="Wrapped command">${escapeHtml(command)}</pre>
     </section>
     <section class="grid">
       ${renderHtmlGitSnapshot("Git Before", manifest.gitBefore)}
@@ -144,7 +145,7 @@ export function renderHtmlReport(manifest: TraceManifest): string {
     </section>
     <section>
       <h2>Git Diff Stat</h2>
-      <pre>${escapeHtml(diffStat)}</pre>
+      <pre tabindex="0" role="region" aria-label="Git diff summary">${escapeHtml(diffStat)}</pre>
     </section>
     <section class="section">
       <h2>Output Files</h2>
@@ -188,7 +189,7 @@ function renderHtmlFindings(findings: RiskFinding[]): string {
       const articles = severityFindings
         .map((finding) => {
           const evidence = finding.evidence
-            ? `<h4>Evidence</h4><pre>${escapeHtml(finding.evidence)}</pre>`
+            ? `<h4>Evidence</h4><pre tabindex="0" role="region" aria-label="Finding evidence">${escapeHtml(finding.evidence)}</pre>`
             : "";
           return `<article class="finding ${finding.severity.toLowerCase()}"><b>${escapeHtml(finding.severity)}</b><h4>${escapeHtml(finding.title)}</h4><p>${escapeHtml(finding.detail)}</p>${evidence}<p><strong>Suggested action:</strong> ${escapeHtml(finding.suggestion)}</p></article>`;
         })
